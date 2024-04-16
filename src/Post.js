@@ -6,7 +6,8 @@ import InputOption from "./InputOption";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
-const Post = ({ name, description, massage, photoUrl }) => {
+
+const Post = ({ name, description, message, photoUrl }) => {
   return (
     <div className="post">
       <div className="post__header">
@@ -17,14 +18,13 @@ const Post = ({ name, description, massage, photoUrl }) => {
         </div>
       </div>
       <div className="post__body">
-        <p>{massage}</p>
+        <p>{message}</p> {/* Corrected typo: 'massage' to 'message' */}
       </div>
       <div className="post__buttons">
         <InputOption Icon={ThumbUpAltOutlined} title="Like" color="gray"/> 
         <InputOption Icon={ChatOutlinedIcon} title="Comment" color="gray"/> 
         <InputOption Icon={ShareOutlinedIcon} title="Share" color="gray"/> 
         <InputOption Icon={SendOutlinedIcon} title="Send" color="gray"/> 
-
       </div>
     </div>
   );
