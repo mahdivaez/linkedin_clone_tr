@@ -9,7 +9,23 @@ import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import ChatIcon from '@mui/icons-material/Chat';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import Avatar from '@mui/material/Avatar';
+import { useDispatch } from 'react-redux';
+import { auth } from './firebase';
+import { logout } from './features/userSlice';
+import { selectUser } from './features/userSlice';
+import { useSelector } from'react-redux';
 const Header = () => {
+
+  const user = useSelector(selectUser)
+  
+   
+  const userName = user ? user.displayName : '';
+
+  const dispatch = useDispatch()
+  const logOutOfApp = () =>{
+      dispatch(logout())
+      auth.signOut();
+  }
   return (
     <div className='header'>
       <div className='header__left'>
@@ -30,7 +46,7 @@ const Header = () => {
         <HeaderOption Icon ={BusinessCenterIcon} title="Jobs" />
         <HeaderOption Icon ={ChatIcon} title="Messaging" />
         <HeaderOption Icon ={NotificationsIcon} title="Notifications" />
-        <HeaderOption avatar="https://compassionate-leakey-e9b16b.netlify.app/images/IG_Sonny.jpeg" title="me" />
+        <HeaderOption avatar={true} title={userName} onClick={logOutOfApp}/>
 
 
 

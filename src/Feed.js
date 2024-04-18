@@ -9,8 +9,14 @@ import CalenderViewDayIcon from "@mui/icons-material/CalendarViewDay";
 import Post from "./Post";
 import { db } from "./firebase";
 import firebase from "firebase/compat/app";
+import { selectUser } from './features/userSlice';
+import { useSelector } from'react-redux';
+import FlipMove from "react-flip-move";
 
 const Feed = () => {
+
+  const user = useSelector(selectUser)
+
   const [input, setInput] = useState("");
   const [posts, setPosts] = useState([]);
 
@@ -32,10 +38,10 @@ const Feed = () => {
     e.preventDefault();
     // Add code here to send a post
     db.collection("posts").add({
-      name: "Mehdi",
-      description: "This is a test",
+      name: user.displayName,
+      description: user.email,
       text: input,
-      photoUrl: "",
+      photoUrl: user.photoUrl || "",
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
     setInput("");
@@ -68,15 +74,18 @@ const Feed = () => {
           />
         </div>
       </div>
+      <FlipMove>
+
       {posts.map(({ id, data: { name, description, text, photoUrl } }) => (
-  <Post
-    key={id}
-    name={name}
-    description={description}
-    message={text} // Changed from 'message' to 'text'
-    photoUrl={photoUrl}
-  />
-))}
+        <Post
+        key={id}
+        name={name}
+        description={description}
+        message={text} // Changed from 'message' to 'text'
+        photoUrl={photoUrl}
+        />
+        ))}
+        </FlipMove>
       {/* Example hardcoded post */}
     </div>
   );

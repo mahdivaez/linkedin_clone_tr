@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react"; // Corrected import statement
 import "./Post.css";
 import { Avatar } from "@mui/material";
 import { ChatOutlined, SendOutlined, ShareOutlined, ThumbUpAltOutlined } from "@mui/icons-material";
@@ -7,11 +7,13 @@ import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 
-const Post = ({ name, description, message, photoUrl }) => {
+const Post = forwardRef(({ name, description, message, photoUrl }, ref) => { // Added parentheses around props
   return (
-    <div className="post">
+    <div  className="post" ref={ref}> {/* Added ref prop */}
       <div className="post__header">
-        <Avatar />
+        <Avatar src={photoUrl}>
+          {name[0]}
+        </Avatar>
         <div className="post__info">
           <h2>{name}</h2>
           <p>{description}</p>
@@ -28,6 +30,6 @@ const Post = ({ name, description, message, photoUrl }) => {
       </div>
     </div>
   );
-};
+});
 
 export default Post;
